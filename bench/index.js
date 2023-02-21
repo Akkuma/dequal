@@ -16,9 +16,9 @@ console.time('fast-deep-equal');
 const fastdeep = require('fast-deep-equal');
 console.timeEnd('fast-deep-equal');
 
-console.time('lodash/isequal');
-const lodash = require('lodash/isequal');
-console.timeEnd('lodash/isequal');
+console.time('lodash/isEqual');
+const lodash = require('lodash/isEqual');
+console.timeEnd('lodash/isEqual');
 
 console.time('nano-equal');
 const nanoequal = require('nano-equal');
@@ -83,6 +83,7 @@ function runner(name, contenders) {
 	bench.run();
 }
 
+const stringify = (foo, bar) => JSON.stringify(foo) === JSON.stringify(bar)
 runner('basic', {
 	'assert.deepStrictEqual': naiive,
 	'util.isDeepStrictEqual': isDeepStrictEqual,
@@ -91,6 +92,7 @@ runner('basic', {
 	'nano-equal': nanoequal,
 	'dequal/lite': lite.dequal,
 	'dequal': dequal,
+	'JSON.stringify': stringify
 });
 
 // Only keep those that pass
@@ -99,4 +101,5 @@ runner('complex', {
 	'util.isDeepStrictEqual': isDeepStrictEqual,
 	'lodash.isEqual': lodash,
 	'dequal': dequal,
+	'JSON.stringify': stringify
 });
